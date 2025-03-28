@@ -2,27 +2,27 @@ version: '3'
 
 services:
   teste-postgres-compose:
-    image: postgres
+    image: postgres     # Instalando PostgreSQL pela imagem dele na Docker Hub.
     environment:
-      POSTGRES_PASSWORD: "Postgres2019!"
+      POSTGRES_PASSWORD: "Postgres2019!"    # Informando a senha para o Docker.
     ports:
-      - "15432:5432"
+      - "15432:5432"    # Porta específica que queremos.
     volumes:
-      - /home/renatogroffe/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data 
+      - /home/renatogroffe/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data   # Volumes tem como objetivo armazenar tudo que for feito no container, assim caso excluir o container temos volumes com os principais dados.
     networks:
-      - postgres-compose-network
+      - postgres-compose-network    # Relacionamento entre containers do docker-compose.
       
   teste-pgadmin-compose:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4   # Instalando o pgAdmin para rodar o PostgreSQL.
     environment:
-      PGADMIN_DEFAULT_EMAIL: "renatogroff@yahoo.com.br"
-      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+      PGADMIN_DEFAULT_EMAIL: "renatogroff@yahoo.com.br"   # Informando para o docker o email que irá ser usado para entrarmos.
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"    #  Informando a Senha do perfil, para implementar com o email. 
     ports:
-      - "16543:80"
+      - "16543:80"    # Porta específica no qual queremos entrar.
     depends_on:
-      - teste-postgres-compose
+      - teste-postgres-compose    # Garante que nosso container PostgreSQL será aberto primeiro, e uma dependência para o container com pgAdmin rodar.
     networks:
-      - postgres-compose-network
+      - postgres-compose-network    # Relacionamemto entre containers do docker-compose.
 
 networks: 
   postgres-compose-network:
